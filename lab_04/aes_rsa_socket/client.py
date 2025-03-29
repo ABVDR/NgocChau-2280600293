@@ -5,17 +5,17 @@ from Crypto.Util.Padding import pad, unpad
 import socket
 import threading
 import hashlib
-# Initialize client socket
+
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 12345))
 
-# Generate RSA key pair
+
 client_key = RSA.generate(2048)
 
-# Receive server's public key
+
 server_public_key = RSA.import_key(client_socket.recv(2048))
 
-# Send client's public key to the server
+
 client_socket.send(client_key.publickey().export_key(format='PEM'))
 
 # Receive encrypted AES key from the server
